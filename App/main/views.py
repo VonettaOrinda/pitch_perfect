@@ -1,10 +1,13 @@
 from crypt import methods
 from json.tool import main
 from os import abort
+from tkinter import PhotoImage
 from turtle import title
-
-from flask import redirect, render_template, url_for
-from ...models import pitch,comments,user,Upvote,Downvote
+from .import db,photos
+from flask import redirect, render_template, request, url_for
+from flask_login import current_user, login_required
+from App.models import Comment, Pitch, User
+from  models import pitch,comments,user,Upvote,Downvote
 from .form import PitchForm,CommentForm,UpdateProfile
 from flask import render_template
 
@@ -79,7 +82,7 @@ def updateprofile(name):
 def update_pic(name):
     user = User.query.filter_by(username = name).first()
     if 'photo' in request.files:
-        filename = photos.save(request.files['photo'])
+        filename = PhotoImage.save(request.files['photo'])
         path = f'photos/{filename}'
         user.profile_pic_path = path
         db.session.commit()
