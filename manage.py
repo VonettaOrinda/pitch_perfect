@@ -1,11 +1,12 @@
 
+# from flask_script import Manager,Server
 from flask_script import Manager,Server
-# from flask_migrate import Migrate, MigrateCommand
 from flask_migrate import Migrate, MigrateCommand
-from app import create_app,db
-from .models import create_app,db
-from app.models import User
-from .models import User
+# from app import create_app,db
+from .App import create_app,db
+from .App.models import create_app,db
+from .App.models import User
+
 
 app = create_app('production')
 
