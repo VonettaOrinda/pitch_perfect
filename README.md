@@ -40,7 +40,7 @@ To get the code..
   ```
 2. Move to the folder and install requirements
   ```bash
-  cd pitch-world
+  cd pitch-perfect
   pip install -r requirements.txt
   ```
 3. Exporting Configurations
@@ -49,16 +49,16 @@ To get the code..
   ```
 4. Running the application
   ```bash
-  python3.6 manage.py server
+  python3.8 manage.py server
   ```
 5. Testing the application
   ```bash
-  python3.6 manage.py test
+  python3.8 manage.py test
   ```
 
 ## Technology used
 
-* [Python3.6](https://www.python.org/)
+* [Python3.8](https://www.python.org/)
 * [Flask](http://flask.pocoo.org/)
 * [Heroku](https://heroku.com)
 
