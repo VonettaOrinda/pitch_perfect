@@ -6,7 +6,8 @@ from turtle import title
 from .import db,photos
 from flask import redirect, render_template, request, url_for
 from flask_login import current_user, login_required
-from App.models import Comment, Pitch, User
+# from App.models import Comment, Pitch, User
+from ...models import Comment,Pitch,User
 from  models import pitch,comments,user,Upvote,Downvote
 from .form import PitchForm,CommentForm,UpdateProfile
 from flask import render_template

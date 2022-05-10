@@ -22,9 +22,14 @@ def create_app(config_name):
     # from .auth import auth as authentication_blueprint
     from .auth import auth as authentication_blueprint
     # from .main import main as main_blueprint
+    from .import main as main_blueprint
+    
+    
+    
     
 
     app.register_blueprint(authentication_blueprint)
+    # app.register_blueprint(main_blueprint)
     app.register_blueprint(main_blueprint)
 
     login_manager.init_app(app)
