@@ -1,24 +1,21 @@
-from crypt import methods
-from json.tool import main
+from . import main
 from os import abort
-from tkinter import PhotoImage
-from turtle import title
-from .import db,photos
+from .. import db
 from flask import redirect, render_template, request, url_for
 from flask_login import current_user, login_required
-# from App.models import Comment, Pitch, User
 from ..models import Comment,Pitch,User
-from  app.models import pitch,comments,user,Upvote,Downvote
+from  app.models import Pitch,Comment,User,Upvote,Downvote
 from .form import PitchForm,CommentForm,UpdateProfile
-from flask import render_template
+
 
 @main.route('/')
 def index():
-    pitch=pitch.query.all()
-    elevator=pitch.query.filter_by(category='elevator').all()
-    followup=pitch.query.filter_by(category='followup').all()
-    email=pitch.query.filter_by(category='email').all()
+    pitch=Pitch.query.all()
+    elevator=Pitch.query.filter_by(category='elevator').all()
+    followup=Pitch.query.filter_by(category='followup').all()
+    email=Pitch.query.filter_by(category='email').all()
     return render_template('index.html', elevator=elevator, followup=followup, email=email)
+
 
 @main.route('/create_new', methods=['POST''GET'])
 @login_required
@@ -54,13 +51,13 @@ def comment(pitch_id):
     
 @main.route('/user/<name>')
 def profile(name):
-    user.query.filter_by(username=name).first()
+    User.query.filter_by(username=name).first()
     user_id=current_user._get_current_object().id
-    posts=pitch.query.filter_by(user_id=user_id).all()
-    if user is None:
+    posts=Pitch.query.filter_by(user_id=user_id).all()
+    if User is None:
         abort(404)
         
-    return render_template("profile/profile.html", user=user, posts=posts)
+    return render_template("profile/profile.html", user=User, posts=posts)
 
 
 
@@ -78,16 +75,16 @@ def updateprofile(name):
     return render_template('profile/update.html',form =form)
 
 
-@main.route('/user/<name>/update/pic',methods= ['POST'])
-@login_required
-def update_pic(name):
-    user = User.query.filter_by(username = name).first()
-    if 'photo' in request.files:
-        filename = PhotoImage.save(request.files['photo'])
-        path = f'photos/{filename}'
-        user.profile_pic_path = path
-        db.session.commit()
-    return redirect(url_for('main.profile',name=name))
+# @main.route('/user/<name>/update/pic',methods= ['POST'])
+# @login_required
+# def update_pic(name):
+#     user = User.query.filter_by(username = name).first()
+#     if 'photo' in request.files:
+#         filename = PhotoImage.save(request.files['photo'])
+#         path = f'photos/{filename}'
+#         user.profile_pic_path = path
+#         db.session.commit()
+#     return redirect(url_for('main.profile',name=name))
 
 @main.route('/like/<int:id>',methods = ['POST','GET'])
 @login_required
